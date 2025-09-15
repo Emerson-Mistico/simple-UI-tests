@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using NaughtyAttributes;
 using DG.Tweening;
+using UnityEditor;
 
 namespace Screens
 {
@@ -18,6 +19,7 @@ namespace Screens
         public ScreenType ScreenType;
 
         public List<Transform> listOfObjects;
+        public List<Typper> listOfPhrases;
 
         public bool startHide = false;
 
@@ -35,21 +37,28 @@ namespace Screens
         [Button]      
         protected virtual void Force()
         {
-            ForceShowObjects();
             //Debug.Log("Force Show");
+
+            if (!EditorApplication.isPlaying) { return; }
+            ForceShowObjects();            
         }
+
         [Button]      
         protected virtual void Show()
         {
-            ShowObjects();
             //Debug.Log("Show");
+
+            if (!EditorApplication.isPlaying) { return; }
+            ShowObjects();            
         }
         
         [Button]
         protected virtual void Hide()
         {
-            Debug.Log("Hide");
-            //HideObjects();
+            // Debug.Log("Hide");
+
+            if (!EditorApplication.isPlaying) { return; }
+            HideObjects();
         }
         private void HideObjects()
         {
@@ -57,7 +66,7 @@ namespace Screens
         }
         private void ShowObjects()
         {
-            Debug.Log("Quantidade de Objetos = " + listOfObjects.Count);
+            // Debug.Log("Quantidade de Objetos = " + listOfObjects.Count);
 
             for (int i = 0; i < listOfObjects.Count; i++) 
             {
@@ -65,6 +74,17 @@ namespace Screens
 
                 obj.gameObject.SetActive(true);
                 obj.DOScale(0, animationDuration).From().SetDelay(i * delayBetweenObjects);
+            }
+
+            Invoke(nameof(StartType), delayBetweenObjects * listOfObjects.Count);
+
+        }
+        private void StartType()
+        {
+            
+            for (int i = 0; i < listOfPhrases.Count; i++) 
+            {
+                listOfPhrases[i].StartType();                                
             }
         }
         private void ForceShowObjects()
