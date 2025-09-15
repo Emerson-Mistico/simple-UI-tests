@@ -10,8 +10,7 @@ namespace Screens
     { 
         Panel,
         Info_Panel,
-        Shop
-    
+        Shop    
     }
 
     public class ScreenBase: MonoBehaviour
@@ -37,20 +36,20 @@ namespace Screens
         protected virtual void Force()
         {
             ForceShowObjects();
-            Debug.Log("Force Show");
+            //Debug.Log("Force Show");
         }
         [Button]      
         protected virtual void Show()
         {
             ShowObjects();
-            Debug.Log("Show");
+            //Debug.Log("Show");
         }
         
         [Button]
         protected virtual void Hide()
         {
             Debug.Log("Hide");
-            HideObjects();
+            //HideObjects();
         }
         private void HideObjects()
         {
