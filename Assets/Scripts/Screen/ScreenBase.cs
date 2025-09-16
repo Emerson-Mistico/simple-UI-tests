@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using DG.Tweening;
 using UnityEditor;
+using UnityEngine.UI;
 
 namespace Screens
 {
 
-    public enum ScreenType 
+    public enum ScreenType
     { 
         Panel,
-        Info_Panel,
-        Shop    
+        Facebook,
+        Ranking,
+        Profile,
+        Shop,
+        Settings,
+        Win,
+        Failled
     }
 
     public class ScreenBase: MonoBehaviour
@@ -21,44 +27,43 @@ namespace Screens
         public List<Transform> listOfObjects;
         public List<Typper> listOfPhrases;
 
-        public bool startHide = false;
+        //public bool startHide = false;
+        // public Image uiImageBackground;
+        public GameObject uiPanel;
 
         public float delayBetweenObjects = .05f;
         public float animationDuration = .3f;
 
         private void Start()
         {
-            if (startHide)
+            /*if (startHide)
             {
                 HideObjects();
-            }
+            }*/
         }
 
         [Button]      
-        protected virtual void Force()
+        public virtual void Force()
         {
-            //Debug.Log("Force Show");
-
             if (!EditorApplication.isPlaying) { return; }
             ForceShowObjects();            
         }
 
         [Button]      
-        protected virtual void Show()
+        public virtual void Show()
         {
-            //Debug.Log("Show");
-
             if (!EditorApplication.isPlaying) { return; }
+            uiPanel.SetActive(true);
             ShowObjects();            
         }
         
         [Button]
-        protected virtual void Hide()
+        public virtual void Hide()
         {
-            // Debug.Log("Hide");
-
             if (!EditorApplication.isPlaying) { return; }
+            uiPanel.SetActive(false);
             HideObjects();
+            
         }
         private void HideObjects()
         {
@@ -66,7 +71,6 @@ namespace Screens
         }
         private void ShowObjects()
         {
-            // Debug.Log("Quantidade de Objetos = " + listOfObjects.Count);
 
             for (int i = 0; i < listOfObjects.Count; i++) 
             {
