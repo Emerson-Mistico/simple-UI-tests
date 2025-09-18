@@ -9,7 +9,6 @@ namespace Screens
 
         public void OnClick()
         {
-            Debug.Log("Open UI: " + screenType);
             ScreenManager.Instance.ShowByType(screenType);
         }
 

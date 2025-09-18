@@ -25,7 +25,6 @@ namespace Screens
                 _currentScreen.Hide();
             }
 
-            Debug.Log("Aqui chegou: " + type);
             var nextScreen = screenBases.Find(i => i.ScreenType == type);
             nextScreen.Show();
             _currentScreen = nextScreen;
